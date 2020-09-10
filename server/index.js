@@ -47,7 +47,7 @@ app.post(`/swimTimes/:name`, (req, res) => {
     console.log(`Successfully logged time`);
     res.status(200).send(data);
   })
-  .catch(err => console.error(`Failed to log time: ${err}`))
+  .catch(err => console.error(`Failed to get times: ${err}`))
 });
 
 app.listen(PORT, () => {
