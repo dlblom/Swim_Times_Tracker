@@ -1,6 +1,8 @@
-import React,{useState } from 'react';
-import Searchbar from './Searchbar';
+import React,{useState, useMemo } from 'react';
 import axios from 'axios';
+import Searchbar from './Searchbar';
+import TimesTable from './TimesTable';
+import headerSchema from './headerSchema.json';
 
 const App = () => {
   const [ times, setTimes ] = useState([]);
@@ -33,6 +35,7 @@ const App = () => {
   return (
     <div>
       <Searchbar handleFirstNameChange={handleFirstNameChange} handleLastNameChange={handleLastNameChange} handleSearchOptionsChange={handleSearchOptionsChange} getTimes={getTimes}  />
+      <TimesTable times={times} headers={Object.keys(headerSchema)} firstName={firstName} lastName={lastName} />
     </div>
   )
 }

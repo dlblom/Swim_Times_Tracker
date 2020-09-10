@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar, Nav, DropdownButton, Dropdown, Form, FormControl, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSwimmer } from "@fortawesome/free-solid-svg-icons";
+import LogTimeModal from './LogTimeModal';
 
 const Searchbar = ({ handleFirstNameChange, handleLastNameChange, handleSearchOptionsChange, getTimes}) => {
   return (
@@ -24,6 +25,8 @@ const Searchbar = ({ handleFirstNameChange, handleLastNameChange, handleSearchOp
           <FormControl onChange={(e) => handleLastNameChange(e)} name="lastName" type="text" placeholder="Enter Last Name" className="mr-sm-2" required={true} />
           <Button variant="outline-light" type="submit">Search</Button>
         </Form>
+        <div>||</div>
+        <LogTimeModal />
       </Navbar>
     </div>
   )
