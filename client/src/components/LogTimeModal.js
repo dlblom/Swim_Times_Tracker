@@ -1,10 +1,46 @@
 import React,{ useState } from 'react';
 import { Button, Modal, FormControl, Form } from 'react-bootstrap';
+import axios from 'axios';
 
 const LogTimeModal = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [firstName, setFirstName] = useState('');
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value)
+  }
+
+  const [lastName, setLastName] = useState('');
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value)
+  }
+
+  const [time, setTime] = useState('');
+  const handleTimeChange = (e) => {
+    setTime(e.target.value)
+  }
+
+  const [date, setDate] = useState('');
+  const handleDateChange = (e) => {
+    setDate(e.target.value)
+  }
+
+  const [event, setEvent] = useState('');
+  const handleEventChange = (e) => {
+    setEvent(e.target.value)
+  }
+
+  const handleSubmit = () => {
+    axios.post(`/swimTimes/${firstName} ${lastName}`, {
+      date: date,
+      event: event,
+      time: time
+    })
+    .then(results => res.send(results))
+    .catch(err => console.log(`Error saving time to database: ${err}`))
+  }
 
   return (
     <div>
@@ -18,19 +54,20 @@ const LogTimeModal = () => {
         </Modal.Header>
         <Modal.Body>
           <Form.Label>Enter First Name:</Form.Label>
-          <FormControl type="text" className="mr-sm-2" required={true} />
+          <FormControl onChange={handleFirstNameChange} type="text" className="mr-sm-2" required={true} />
           <Form.Label>Enter Last Name:</Form.Label>
-          <FormControl type="text" className="mr-sm-2" required={true} />
+          <FormControl onChange={handleLastNameChange} type="text" className="mr-sm-2" required={true} />
           <Form.Label>Enter Time as MM:SS.MS :</Form.Label>
-          <FormControl type="text" placeholder="Enter Time" className="mr-sm-2" required={true} />
+          <FormControl onChange={handleTimeChange} type="text" placeholder="Enter Time" className="mr-sm-2" required={true} />
           <Form.Label>Enter Date as YYYY-MM-DD :</Form.Label>
-          <FormControl type="text" placeholder="Enter Date" className="mr-sm-2" required={true} />
+          <FormControl onChange={handleDateChange} type="text" placeholder="Enter Date" className="mr-sm-2" required={true} />
           <Form.Label>Select Event</Form.Label>
-          <Form.Control
+          <Form.Control onChange={handleEventChange}
               as="select"
               className="my-1 mr-sm-2"
               id="inlineFormCustomSelectPref"
               custom>
+              <option value=""></option>
               <option value="50 FR SCY">50 FR SCY</option>
               <option value="100 FR SCY">100 FR SCY</option>
               <option value="200 FR SCY">200 FR SCY</option>
@@ -64,8 +101,11 @@ const LogTimeModal = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Log Time!
+          <Button variant="primary" onClick={() => {
+            handleClose()
+            handleSubmit()
+          }}>
+            Save
           </Button>
         </Modal.Footer>
       </Modal>
