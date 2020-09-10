@@ -20,36 +20,34 @@ const mongo = MongoClient.connect('mongodb://localhost/swim_tracker', { useNewUr
   })
   .catch((err) => console.log(`Error connecting to database: ${err}`));
 
-// should get document for swimmer based on their email
-app.get(`/swimTimes/:email`, (req, res) => {
-  let email = req.params.email;
-  swimmersCollection.findOne({ email: email })
+// should get document for swimmer based on their name
+app.get(`/swimTimes/:name`, (req, res) => {
+  let name = req.params.name;
+  swimmersCollection.findOne({ name: name })
   .then(data => {
-    console.log(`Successfully found swimmer times by email: ${email}`);
+    console.log(`Successfully found swimmer times by name: ${name}`);
     res.status(200).send(data);
   })
   .catch(err => console.error(`Failed to get times: ${err}`))
 });
 
-// get times by event
-
-// add a new time to document for the logged in swimmer
-app.post(`/swimTimes/:email`, (req, res) => {
-  let email = req.params.email;
-  let time = req.body.time;
+// add a new time for an event to the existing document for the logged in swimmer
+app.post(`/swimTimes/:name`, (req, res) => {
+  let name = req.params.name;
   let date = req.body.date;
   let event = req.body.event;
+  let time = req.body.time;
   swimmersCollection.updateOne(
-    { email: email },
+    { name: name },
     {
-      $push: { [event]: { "time": time, "event": event, "date": date} }
+      $push: { "times": { "time": time, "event": event, "date": date} }
     }
   )
   .then(data => {
-    console.log(`Successfully found swimmer times by email: ${email}`);
+    console.log(`Successfully logged time`);
     res.status(200).send(data);
   })
-  .catch(err => console.error(`Failed to get times: ${err}`))
+  .catch(err => console.error(`Failed to log time: ${err}`))
 });
 
 app.listen(PORT, () => {
