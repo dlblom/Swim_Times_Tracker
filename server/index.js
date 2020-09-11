@@ -31,16 +31,17 @@ app.get(`/swimTimes/:name`, (req, res) => {
   .catch(err => console.error(`Failed to get times: ${err}`))
 });
 
-// add a new time for an event to the existing document for the logged in swimmer
+// add a new time log for swimmer based on their name
 app.post(`/swimTimes/:name`, (req, res) => {
   let name = req.params.name;
   let date = req.body.date;
   let event = req.body.event;
   let time = req.body.time;
+  let meet = req.body.meet;
   swimmersCollection.updateOne(
     { name: name },
     {
-      $push: { "times": { "time": time, "event": event, "date": date} }
+      $push: { "times": { "time": time, "event": event, "date": date, "meet": meet} }
     }
   )
   .then(data => {

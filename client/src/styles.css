@@ -1,11 +1,14 @@
-#tableTitle {
-  text-align: center;
-  font-family: arial, sans-serif;
+html {
+  font-size: 21px;
+}
+
+span {
+  color: #2e7ee7;
 }
 
 #swimTimes {
   text-align: center;
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   border-collapse: collapse;
   border: 3px solid #ddd;
   width: 100%;
@@ -18,12 +21,17 @@
 
 #swimTimes tr:nth-child(even){background-color: #f2f2f2;}
 
-#swimTimes tr:hover {background-color: #ddd;}
+#swimTimes tr:hover {background-color: rgba(1, 139, 252, 0.438);}
 
 #swimTimes th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #4CAF50;
+  background-color: #499dfc;
   color: white;
+  font-size: 18px;
+}
+
+#pool {
+  width: 100%
 }

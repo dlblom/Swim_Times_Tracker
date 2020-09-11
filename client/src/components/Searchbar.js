@@ -25,7 +25,7 @@ const Searchbar = ({ handleFirstNameChange, handleLastNameChange, handleSearchOp
           <FormControl onChange={(e) => handleLastNameChange(e)} name="lastName" type="text" placeholder="Enter Last Name" className="mr-sm-2" required={true} />
           <Button variant="outline-light" type="submit">Search</Button>
         </Form>
-        <div>||</div>
+        <span>|</span>
         <LogTimeModal />
       </Navbar>
     </div>

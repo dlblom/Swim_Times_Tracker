@@ -1,4 +1,4 @@
-import React,{useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import Searchbar from './Searchbar';
 import TimesTable from './TimesTable';
@@ -26,7 +26,6 @@ const App = () => {
     e.preventDefault();
     axios.get(`/swimTimes/${firstName} ${lastName}`)
       .then(results => {
-        console.log(results.data.times)
         setTimes(results.data.times)
     })
     .catch(err => console.log(`Error retrieving times from database: ${err}`))
@@ -34,7 +33,7 @@ const App = () => {
 
   return (
     <div>
-      <Searchbar handleFirstNameChange={handleFirstNameChange} handleLastNameChange={handleLastNameChange} handleSearchOptionsChange={handleSearchOptionsChange} getTimes={getTimes}  />
+      <Searchbar handleFirstNameChange={handleFirstNameChange} handleLastNameChange={handleLastNameChange} handleSearchOptionsChange={handleSearchOptionsChange} getTimes={getTimes} />
       <TimesTable times={times} headers={Object.keys(headerSchema)} firstName={firstName} lastName={lastName} />
     </div>
   )

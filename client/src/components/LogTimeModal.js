@@ -32,11 +32,18 @@ const LogTimeModal = () => {
     setEvent(e.target.value)
   }
 
+  const [meet, setMeet] = useState('');
+  const handleMeetChange = (e) => {
+    setMeet(e.target.value)
+    console.log(e.target.value)
+  }
+
   const handleSubmit = () => {
     axios.post(`/swimTimes/${firstName} ${lastName}`, {
       date: date,
       event: event,
-      time: time
+      time: time,
+      meet: meet
     })
     .then(results => res.send(results))
     .catch(err => console.log(`Error saving time to database: ${err}`))
@@ -47,7 +54,6 @@ const LogTimeModal = () => {
       <Button variant="outline-light" onClick={handleShow}>
         Log Time
       </Button>
-
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Log New Swim Time</Modal.Title>
@@ -58,9 +64,11 @@ const LogTimeModal = () => {
           <Form.Label>Enter Last Name:</Form.Label>
           <FormControl onChange={handleLastNameChange} type="text" className="mr-sm-2" required={true} />
           <Form.Label>Enter Time as MM:SS.MS :</Form.Label>
-          <FormControl onChange={handleTimeChange} type="text" placeholder="Enter Time" className="mr-sm-2" required={true} />
+          <FormControl onChange={handleTimeChange} type="text" className="mr-sm-2" required={true} />
           <Form.Label>Enter Date as YYYY-MM-DD :</Form.Label>
-          <FormControl onChange={handleDateChange} type="text" placeholder="Enter Date" className="mr-sm-2" required={true} />
+          <FormControl onChange={handleDateChange} type="text" className="mr-sm-2" required={true} />
+          <Form.Label>Enter Swim Meet Name:</Form.Label>
+          <FormControl onChange={handleMeetChange} type="text" className="mr-sm-2" required={true} />
           <Form.Label>Select Event</Form.Label>
           <Form.Control onChange={handleEventChange}
               as="select"
